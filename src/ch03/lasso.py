@@ -11,9 +11,9 @@ from sklearn import linear_model
 def load_financial_data(start_date, end_date, output_file):
     try:
         df = pd.read_pickle(output_file)
-        print("File data found...reading GOOG data")
+        print("Reading GOOG data...")
     except FileNotFoundError:
-        print("File not found...downloading the GOOG data")
+        print("Downloading the GOOG data...")
         df = yf.download("GOOG", start=start_date, end=end_date)
         df.to_pickle(output_file)
     return df
@@ -49,11 +49,11 @@ if __name__ == "__main__":
     goog_data, X, Y = create_regression_trading_condition(goog_data)
     X_train, X_test, Y_train, Y_test = create_train_split_group(X, Y, split_ratio=0.8)
 
-    ridge = linear_model.Ridge(alpha=10000)
-    ridge.fit(X_train, Y_train)
-    print("Coefficients: \n", ridge.coef_)
+    lasso = linear_model.Lasso(alpha=0.1)
+    lasso.fit(X_train, Y_train)
+    print("Coefficients: \n", lasso.coef_)
 
-    goog_data["Predicted_Signal"] = ridge.predict(X)
+    goog_data["Predicted_Signal"] = lasso.predict(X)
     goog_data["GOOG_Returns"] = np.log(goog_data["Close"] / goog_data["Close"].shift(1))
     print(goog_data.head())
 
@@ -86,11 +86,11 @@ if __name__ == "__main__":
     print(sharpe_ratio(cum_strategy_return, cum_goog_return))
 
     # The mean squared error
-    print("Mean squared error: %.2f" % mean_squared_error(Y_train, ridge.predict(X_train)))
+    print("Mean squared error: %.2f" % mean_squared_error(Y_train, lasso.predict(X_train)))
     # Explained variance score: 1 is perfect prediction
-    print("Variance score: %.2f" % r2_score(Y_train, ridge.predict(X_train)))
+    print("Variance score: %.2f" % r2_score(Y_train, lasso.predict(X_train)))
 
     # The mean squared error
-    print("Mean squared error: %.2f" % mean_squared_error(Y_test, ridge.predict(X_test)))
+    print("Mean squared error: %.2f" % mean_squared_error(Y_test, lasso.predict(X_test)))
     # Explained variance score: 1 is perfect prediction
-    print("Variance score: %.2f" % r2_score(Y_test, ridge.predict(X_test)))
+    print("Variance score: %.2f" % r2_score(Y_test, lasso.predict(X_test)))

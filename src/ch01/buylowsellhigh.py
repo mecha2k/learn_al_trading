@@ -1,20 +1,22 @@
 import yfinance as yf
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
     start = "2014-01-01"
-    end = "2018-01-01"
+    end = "2015-01-01"
     google = yf.download("GOOG", start=start, end=end)
     print(google.info)
 
     google_signal = pd.DataFrame(index=google.index)
     google_signal["price"] = google["Adj Close"]
     google_signal["daily_difference"] = google_signal["price"].diff()
-    google_signal["signal"] = 0.0
-    google_signal["signal"][:] = np.where(google_signal["daily_difference"][:] > 0, 1.0, 0.0)
+    google_signal["signal"] = google_signal["daily_difference"].apply(
+        lambda x: 1.0 if x > 0 else 0.0
+    )
+    # google_signal["signal"] = 0.0
+    # google_signal["signal"][:] = np.where(google_signal["daily_difference"][:] > 0, 1.0, 0.0)
     google_signal["positions"] = google_signal["signal"].diff()
 
     fig = plt.figure()
@@ -32,7 +34,7 @@ if __name__ == "__main__":
         google_signal.price[google_signal.positions == -1.0],
         "v",
         markersize=3,
-        color="k",
+        color="g",
     )
     plt.show()
 
