@@ -12,10 +12,8 @@ yarn-error.log*
 lerna-debug.log*
 
 
-master
 src/data
 src/images
-src/choromedriver
 
 .DS_Store
 .vscode
