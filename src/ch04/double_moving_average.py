@@ -32,7 +32,7 @@ def double_moving_average(financial_data, short_window, long_window):
 
 
 if __name__ == "__main__":
-    src_data = "../data/goog_data.pkl"
+    src_data = "../data/data04-1.pkl"
     goog_data = load_financial_data("2001-01-01", "2021-01-01", src_data)
 
     ts = double_moving_average(goog_data, 20, 100)
