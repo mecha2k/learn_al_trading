@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 """
 The Absolute Price Oscillator (APO) is based
- on the absolute differences between two moving averages of different
- lengths, a ‘Fast’ and a ‘Slow’ moving average.
+on the absolute differences between two moving averages of different
+lengths, a ‘Fast’ and a ‘Slow’ moving average.
 
 APO = Fast Exponential Moving Average - Slow Exponential Moving Average
 """
