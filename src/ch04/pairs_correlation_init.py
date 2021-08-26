@@ -10,7 +10,7 @@ from statsmodels.tsa.stattools import coint
 def load_financial_data(symbols, start_date, end_date, output_file):
     try:
         df = pd.read_pickle(output_file)
-        print("Reading symbos data...")
+        print("Reading symbols data...")
     except FileNotFoundError:
         print("Downloading the symbols data...")
         df = yf.download(symbols, start=start_date, end=end_date)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     print(pairs)
     print(data.head(3))
 
-    seaborn.heatmap(
+    sns.heatmap(
         pvalues,
         xticklabels=symbolsIds,
         yticklabels=symbolsIds,
