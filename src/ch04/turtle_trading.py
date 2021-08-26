@@ -64,11 +64,11 @@ if __name__ == "__main__":
     pd.set_option("display.max_columns", 500)
     pd.set_option("display.width", 1000)
 
-    src_data = "../data/goog_data.pkl"
+    src_data = "../data/multi_data_large.pkl"
     symbolsIds = ["SPY", "AAPL", "ADBE", "LUV", "MSFT", "SKYW", "QCOM", "HPQ", "JNPR", "AMD", "IBM"]
-    goog_data = load_financial_data("GOOG", "2001-01-01", "2021-01-01", src_data)
+    data = load_financial_data(symbolsIds, "2001-01-01", "2021-01-01", src_data)
 
-    ts = turtle_trading(goog_data, 50)
+    ts = turtle_trading(data, 50)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111, ylabel="Google price in $")

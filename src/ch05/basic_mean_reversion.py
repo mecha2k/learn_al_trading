@@ -19,7 +19,7 @@ def load_financial_data(symbols, start_date, end_date, output_file):
 
 
 if __name__ == "__main__":
-    src_data = "../data/goog_data.pkl"
+    src_data = "../data/data05-1.pkl"
     symbolsIds = ["SPY", "AAPL", "ADBE", "LUV", "MSFT", "SKYW", "QCOM", "HPQ", "JNPR", "AMD", "IBM"]
     data = load_financial_data("GOOG", "2014-01-01", "2021-01-01", src_data)
 
