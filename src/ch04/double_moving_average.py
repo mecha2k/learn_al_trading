@@ -33,9 +33,11 @@ def double_moving_average(financial_data, short_window, long_window):
 
 if __name__ == "__main__":
     src_data = "../data/data04-1.pkl"
-    goog_data = load_financial_data("2001-01-01", "2021-01-01", src_data)
+    goog_data = load_financial_data("2010-01-01", "2021-01-01", src_data)
+    goog_data = goog_data["2020":"2021"]
+    print(goog_data.tail())
 
-    ts = double_moving_average(goog_data, 20, 100)
+    ts = double_moving_average(goog_data, 20, 50)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111, ylabel="Google price in $")
